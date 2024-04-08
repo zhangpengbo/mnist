@@ -32,7 +32,7 @@ class ConvNet(nn.Module):
         x = self.fc2(x)
         output = F.log_softmax(x, dim=1)
         return output
-@record
+        
 def train(rank, world_size):
     dist.init_process_group("nccl", rank=rank, world_size=world_size)
     torch.manual_seed(0)
