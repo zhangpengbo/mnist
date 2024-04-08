@@ -62,8 +62,8 @@ def train(rank, world_size):
             optimizer.step()
             if batch_idx % 10 == 0:
                 print(f"Train Epoch: {epoch} [{batch_idx * len(data)}/{len(train_loader.sampler)} ({100. * batch_idx / len(train_loader):.0f}%)]\tLoss: {loss.item():.6f} \t Deivce: {rank}")
-    print("tran finish, begin to save model")
-    torch.save(model.state_dict(), '/data/mnist_weights.pth')
+    #print("tran finish, begin to save model")
+    #torch.save(model.state_dict(), '/data/mnist_weights.pth')
 
 if __name__ == "__main__":
     world_size = int(os.environ['WORLD_SIZE'])
