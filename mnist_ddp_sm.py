@@ -45,7 +45,7 @@ def train(rank,world_size):
         transfroms.Normalize((0.1308,),(0.3081,))
     ]) 
 
-    dataset = datasets.MNIST('../data', train=True, download=True, transform=transform)
+    dataset = datasets.MNIST('/data', train=True, download=True, transform=transform)
     sampler = DistributedSampler(dataset, num_replicas=world_size, rank=rank)
     train_loader = DataLoader(dataset, sampler=sampler, batch_size=64)
 
