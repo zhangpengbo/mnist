@@ -32,6 +32,7 @@ class ConvNet(nn.Module):
         x = self.fc2(x)
         output = F.log_softmax(x, dim=1)
         return output
+'''        
 class MyTrainDataset(Dataset):
     def __init__(self, size):
         self.size = size
@@ -43,20 +44,21 @@ class MyTrainDataset(Dataset):
     def __getitem__(self, index):
         return self.data[index]
 
+'''
 
 def train(rank, world_size,local_rank):
     dist.init_process_group("nccl", rank=rank, world_size=world_size)
     torch.manual_seed(0)
     torch.cuda.set_device(local_rank)
     
-    '''
+    
     transform = transforms.Compose([
         transforms.ToTensor(),
         transforms.Normalize((0.1307,), (0.3081,))
     ])
-    '''
-    #dataset = datasets.MNIST('../data', train=True, download=True, transform=transform)
-    dataset = MyTrainDataset(60000)
+    
+    dataset = datasets.MNIST('../data', train=True, download=True, transform=transform)
+    #dataset = MyTrainDataset(60000)
     sampler = DistributedSampler(dataset, num_replicas=world_size, rank=rank)
     train_loader = DataLoader(dataset, sampler=sampler, batch_size=64)
 
