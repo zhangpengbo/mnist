@@ -60,8 +60,8 @@ def train(rank, world_size,local_rank):
     sampler = DistributedSampler(dataset, num_replicas=world_size, rank=rank)
     train_loader = DataLoader(dataset, sampler=sampler, batch_size=64)
 
-    model = ConvNet().cuda(rank)
-    model = DDP(model, device_ids=[rank])
+    model = ConvNet().cuda(local_rank)
+    model = DDP(model, device_ids=[local_rank])
     optimizer = optim.Adadelta(model.parameters(), lr=1.0)
 
     model.train()
