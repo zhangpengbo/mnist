@@ -47,7 +47,7 @@ class MyTrainDataset(Dataset):
 def train(rank, world_size):
     dist.init_process_group("nccl", rank=rank, world_size=world_size)
     torch.manual_seed(0)
-    torch.cuda.set_device(int(os.environ['RANK']))
+    torch.cuda.set_device(int(os.environ['LOCAL_RANK']))
     
     '''
     transform = transforms.Compose([
