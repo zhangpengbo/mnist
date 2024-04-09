@@ -47,7 +47,7 @@ class MyTrainDataset(Dataset):
 def train(rank, world_size):
     dist.init_process_group("nccl", rank=rank, world_size=world_size)
     torch.manual_seed(0)
-    torch.cuda.set_device(rank)
+    torch.cuda.set_device(int(os.environ['RANK']))
     
     '''
     transform = transforms.Compose([
@@ -60,15 +60,15 @@ def train(rank, world_size):
     sampler = DistributedSampler(dataset, num_replicas=world_size, rank=rank)
     train_loader = DataLoader(dataset, sampler=sampler, batch_size=64)
 
-    model = ConvNet().cuda(rank)
-    model = DDP(model, device_ids=[rank])
+    model = ConvNet().cuda(int(os.environ['LOCAL_RANK']))
+    model = DDP(model, device_ids=int(os.environ['LOCAL_RANK']))
     optimizer = optim.Adadelta(model.parameters(), lr=1.0)
 
     model.train()
     for epoch in range(1, 2):  # 训练1个epoch
         sampler.set_epoch(epoch)
         for batch_idx, (data, target) in enumerate(train_loader):
-            data, target = data.cuda(rank), target.cuda(rank)
+            data, target = data.cuda(int(os.environ['LOCAL_RANK'])), target.cuda(int(os.environ['LOCAL_RANK']))
             optimizer.zero_grad()
             output = model(data)
             loss = F.nll_loss(output, target)
@@ -81,5 +81,5 @@ def train(rank, world_size):
 
 if __name__ == "__main__":
     world_size = int(os.environ['WORLD_SIZE'])
-    rank = int(os.environ['LOCAL_RANK'])
+    rank = int(os.environ['RANK'])
     train(rank, world_size)
