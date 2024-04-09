@@ -61,7 +61,7 @@ def train(rank, world_size):
     train_loader = DataLoader(dataset, sampler=sampler, batch_size=64)
 
     model = ConvNet().cuda(int(os.environ['LOCAL_RANK']))
-    model = DDP(model, device_ids=int(os.environ['LOCAL_RANK']))
+    model = DDP(model, device_ids=[int(os.environ['LOCAL_RANK'])])
     optimizer = optim.Adadelta(model.parameters(), lr=1.0)
 
     model.train()
