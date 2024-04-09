@@ -67,5 +67,5 @@ def train(rank, world_size):
 
 if __name__ == "__main__":
     world_size = int(os.environ['WORLD_SIZE'])
-    rank = int(os.environ['RANK'])
+    rank = int(os.environ['LOCAL_RANK'])
     train(rank, world_size)
