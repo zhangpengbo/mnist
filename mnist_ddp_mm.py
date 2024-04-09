@@ -6,7 +6,7 @@ import torch.nn.functional as F
 import torch.distributed as dist
 from torchvision import datasets, transforms
 from torch.nn.parallel import DistributedDataParallel as DDP
-from torch.utils.data import DataLoader, DistributedSampler
+from torch.utils.data import DataLoader, DistributedSampler,Dataset
 
 class ConvNet(nn.Module):
     def __init__(self):
