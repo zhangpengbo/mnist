@@ -48,11 +48,13 @@ def train(rank, world_size):
     dist.init_process_group("nccl", rank=rank, world_size=world_size)
     torch.manual_seed(0)
     torch.cuda.set_device(rank)
-
-    #transform = transforms.Compose([
+    
+    '''
+    transform = transforms.Compose([
         transforms.ToTensor(),
         transforms.Normalize((0.1307,), (0.3081,))
     ])
+    '''
     #dataset = datasets.MNIST('../data', train=True, download=True, transform=transform)
     dataset = MyTrainDataset(60000)
     sampler = DistributedSampler(dataset, num_replicas=world_size, rank=rank)
