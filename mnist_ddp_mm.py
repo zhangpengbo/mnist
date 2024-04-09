@@ -68,7 +68,7 @@ def train(rank, world_size,local_rank):
     for epoch in range(1, 2):  # 训练1个epoch
         sampler.set_epoch(epoch)
         for batch_idx, (data, target) in enumerate(train_loader):
-            data, target = data.cuda(rank), target.cuda(rank)
+            data, target = data.cuda(local_rank), target.cuda(local_rank)
             optimizer.zero_grad()
             output = model(data)
             loss = F.nll_loss(output, target)
