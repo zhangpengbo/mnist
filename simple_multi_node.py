@@ -341,14 +341,14 @@ def main():
     parser.add_argument('--num-classes', type=int, default=10, help='Number of classes')
     
     # 训练参数
-    parser.add_argument('--epochs', type=int, default=10, help='Number of epochs')
+    parser.add_argument('--epochs', type=int, default=1000, help='Number of epochs')
     parser.add_argument('--batch-size', type=int, default=64, help='Batch size')
     parser.add_argument('--learning-rate', type=float, default=0.001, help='Learning rate')
     parser.add_argument('--lr-step-size', type=int, default=5, help='LR scheduler step size')
     parser.add_argument('--lr-gamma', type=float, default=0.5, help='LR scheduler gamma')
     
     # 数据参数
-    parser.add_argument('--dataset-size', type=int, default=10000, help='Dataset size')
+    parser.add_argument('--dataset-size', type=int, default=6400000, help='Dataset size')
     
     # 其他参数
     parser.add_argument('--seed', type=int, default=42, help='Random seed')
