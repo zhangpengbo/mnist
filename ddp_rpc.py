@@ -24,7 +24,7 @@ def init_rpc():
             init_method=f'tcp://{os.getenv("MASTER_ADDR")}:{os.getenv("RPC_PORT")}'
         )
     )
-    # 继续 RPC 训练逻辑
+    # 继续 RPC 训练逻辑dd
 # just test
 if __name__ == "__main__":
     if os.getenv('RANK') == '0':
