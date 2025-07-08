@@ -25,7 +25,7 @@ def init_rpc():
         )
     )
     # 继续 RPC 训练逻辑
-
+# just test
 if __name__ == "__main__":
     if os.getenv('RANK') == '0':
         init_ddp()
